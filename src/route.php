@@ -31,7 +31,7 @@ class route
       * @return {bool}
      */
      public function json()
-     { /
+     {
 
      }
      function __construct (string $route = 'login', array $messages = [])

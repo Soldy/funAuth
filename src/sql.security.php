@@ -20,9 +20,9 @@ trait sqlSecurity {
     protected function securitys(array $var_array) : string // the prepare syntax should replace this function to
     {
         $out = "";
-        for($i=0;count($varArray)>$i;$i++){
+        for($i=0;count($var_array)>$i;$i++){
             if($i>0) $out.=", ";
-            $out.="'".$this->security($varArray[$i])."'";
+            $out.="'".$this->security($var_array[$i])."'";
         }
         return $out;
     }

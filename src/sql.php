@@ -12,7 +12,7 @@ class sql extends sqlAbstract
      * 
      *
      */
-    public function queryFunction(string $func, array $vari_array ) 
+    public function queryFunction(string $func, array $var_array ) 
     {
         // I use . because it's faster
         $sql = '`'. $func. '`('; 
@@ -21,7 +21,7 @@ class sql extends sqlAbstract
         // And its not a prepare syntax jet... because that not a live code
         // That should brake the solid o.
         return $this->query(
-           'SELECT '. $sql // Not
+           'SELECT '. $sql 
         )[0][$sql]; 
     }
     function __construct(){
