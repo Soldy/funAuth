@@ -17,7 +17,7 @@ trait sqlSecurity {
    * @rotected
    * @return {string} safe string 
    */
-    protected function securitys(array $varArray) : string
+    protected function securitys(array $var_array) : string
     {
         $out = "";
         for($i=0;count($varArray)>$i;$i++){
