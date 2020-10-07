@@ -3,11 +3,13 @@
 class sql extends sqlAbstract 
 {
     use sqlSecurity;
-    /* this funcion is thas
+    /* this funcion call the functions on the sql
+     *  
      * @param {string}
      * @param {array} variables
      * @public
-     * @return {mixed}
+     * @return {mixed} always come back with the first line. 
+     * 
      *
      */
     public function queryFunction(string $func, array $vari_array ) 

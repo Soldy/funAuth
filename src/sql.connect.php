@@ -1,7 +1,11 @@
 <?php
 
-abstract class sqlAbstract
+
+
+abstract class sqlAbstract 
 {
+    // @object
+    private $sql;
     // @var {boolean}
     private $loaded = false;
     // @var {string}
@@ -17,6 +21,24 @@ abstract class sqlAbstract
      * @protected
      */
     protected function query(string $query) : array
+    {
+        $rows = [];
+        $res = $this->sql->query($query);
+        if ($this->sql->errno)
+            error_log($this->sql->error, 0);
+        if ($res == false)
+            return [];
+        while ($row = $res->fetch_assoc())
+            $rows[] = $row;
+        $this->sql->close();
+        $this->connect();
+        return $rows;
+    }
+    /*
+     * @param {string}
+     * @protected
+     */
+    protected function query(string $query, $arra) : array
     {
         $rows = [];
         $res = $this->sql->query($query);

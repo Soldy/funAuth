@@ -3,13 +3,14 @@
 
 
 // Not the best name
+// Most of the time i use a midleware + a controller for this. Now i have this class.
 class userManager
 {
     /*
      * @msqli // odbc 
     */
     private $sql;
-    /*
+    /* in this case this is the get and post ...
      * @public
      * @return {bool}
      *
