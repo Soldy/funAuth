@@ -1,0 +1,15 @@
+DELIMITER ;;
+CREATE  FUNCTION `hash_get`(`data_input` VARCHAR(128) CHARSET utf8, `salt_input` VARCHAR(128) CHARSET utf8) RETURNS varchar(256) CHARSET utf8
+    NO SQL
+BEGIN
+  RETURN (
+    SELECT SHA2(
+      CONCAT(
+        data_input,
+        salt_input
+      ),
+      512
+    )
+  );
+END ;;
+DELIMITER ;

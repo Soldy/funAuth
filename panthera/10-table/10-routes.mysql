@@ -1,0 +1,7 @@
+CREATE TABLE `routes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `route` varchar(70) NOT NULL,
+  UNIQUE KEY `route` (`route`),
+  KEY `index` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

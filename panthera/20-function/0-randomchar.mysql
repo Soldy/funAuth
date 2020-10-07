@@ -1,0 +1,26 @@
+DELIMITER ;;
+CREATE  FUNCTION `randomchar`(`char_count` INT UNSIGNED) RETURNS varchar(1024) CHARSET utf8
+    NO SQL
+BEGIN 
+  DECLARE CHARACTERS VARCHAR(86) default '$-_+$%=&()?@;:#~[]{},.<>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  DECLARE OUTPUT VARCHAR(1000) default '';
+  DECLARE I INT default 1;
+  IF char_count > 1024 THEN
+      SET char_count = 1024 ;
+  END IF;
+  WHILE I <= char_count DO
+    SET OUTPUT = CONCAT(
+        OUTPUT, 
+        (
+            SELECT substring(
+                CHARACTERS,
+                rand()*86,
+                1
+            )
+        )
+    );
+    SET I = I + 1;
+  END WHILE;  
+  RETURN OUTPUT;
+END ;;
+DELIMITER ;

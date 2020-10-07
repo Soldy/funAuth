@@ -1,0 +1,6 @@
+CREATE TABLE `passwords` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `hash` varchar(256) NOT NULL,
+  `salt` varchar(256) NOT NULL,
+  KEY `index` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

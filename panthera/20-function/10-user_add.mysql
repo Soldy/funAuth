@@ -1,0 +1,22 @@
+DELIMITER ;;
+CREATE  FUNCTION `user_add`(`username` VARCHAR(70) CHARSET utf8, `group_id` INT UNSIGNED, `password_input` VARCHAR(70) CHARSET utf8) RETURNS int(10) unsigned
+    MODIFIES SQL DATA
+BEGIN
+   DECLARE ALIASID INT(10) UNSIGNED;
+   DECLARE ALIASCOUNT TINYINT(2) UNSIGNED;
+   DECLARE PASSWORDID INT(10) UNSIGNED;   
+   SET ALIASID = (SELECT alias_add(username));
+   SELECT COUNT(`id`) INTO ALIASCOUNT FROM `users` WHERE `users`.`aliasId` = ALIASID LIMIT 1;
+   IF ALIASCOUNT > 0 THEN
+      RETURN NULL;
+   END IF;
+   IF NOT EXISTS( SELECT 1 FROM `groups` WHERE `groups`.`id` = group_id LIMIT 1) THEN
+       RETURN NULL;
+   END IF;
+   SET PASSWORDID = (SELECT password_add(password_input));
+   INSERT INTO `users` 
+     (`users`.`aliasId`, `users`.`groupId`, `users`.`passwordId`)
+     VALUES (ALIASID, group_id, PASSWORDID);
+   RETURN LAST_INSERT_ID();
+END ;;
+DELIMITER ;

@@ -1,0 +1,17 @@
+DELIMITER ;;
+CREATE FUNCTION `group_add`(`name` VARCHAR(70) CHARSET utf8, `route_id` INT UNSIGNED) RETURNS int(10) unsigned
+    MODIFIES SQL DATA
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM `routes`
+      WHERE `routes`.`id` = route_id LIMIT 1
+  ) THEN
+    RETURN NULL;
+  END IF;
+  INSERT INTO `groups` 
+      (`groups`.`name`, `groups`.`routeId`)
+      VALUES
+      (name,route_id);
+  RETURN LAST_INSERT_ID();
+END ;;
+DELIMITER ;

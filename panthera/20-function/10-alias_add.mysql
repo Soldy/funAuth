@@ -1,0 +1,19 @@
+DELIMITER ;;
+CREATE FUNCTION `alias_add`(`alias_input` VARCHAR(70) CHARSET utf8) RETURNS int(10) unsigned
+    MODIFIES SQL DATA
+BEGIN
+    DECLARE alias_id INT(10) UNSIGNED;
+    SELECT `id` INTO alias_id
+        FROM `aliases` 
+        WHERE `aliases`.`alias` = alias_input
+        LIMIT 1;
+    IF alias_id IS NULL THEN
+        INSERT INTO `aliases`
+            (`aliases`.`alias`)
+            VALUES
+            (alias_input);
+        RETURN LAST_INSERT_ID();
+    END IF;
+    RETURN (SELECT alias_id);
+END ;;
+DELIMITER ;

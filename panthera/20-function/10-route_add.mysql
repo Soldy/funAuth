@@ -1,0 +1,19 @@
+DELIMITER ;;
+CREATE  FUNCTION `route_add`(`route_input` VARCHAR(70) CHARSET utf8) RETURNS int(10) unsigned
+    MODIFIES SQL DATA
+BEGIN
+    DECLARE ROUTEID INT(10) UNSIGNED;
+    SELECT `id` INTO ROUTEID
+    FROM `routes` 
+        WHERE `routes`.`route` = route_input
+        LIMIT 1;
+    IF ROUTEID IS NULL THEN
+        INSERT INTO `routes`
+            (`routes`.`route`)
+            VALUES
+            (route_input);
+        RETURN LAST_INSERT_ID();
+    END IF;
+    RETURN (SELECT ROTEID);
+END ;;
+DELIMITER ;
