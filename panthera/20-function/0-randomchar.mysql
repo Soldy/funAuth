@@ -1,5 +1,5 @@
 DELIMITER ;;
-CREATE  FUNCTION `randomchar`(`char_count` INT UNSIGNED) RETURNS varchar(1024) CHARSET utf8
+CREATE  FUNCTION `randomchar`(`char_count` SMALLINT UNSIGNED) RETURNS varchar(1024) CHARSET utf8
     NO SQL
 BEGIN 
   DECLARE CHARACTERS VARCHAR(86) default '$-_+$%=&()?@;:#~[]{},.<>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
