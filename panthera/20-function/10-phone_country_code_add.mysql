@@ -1,0 +1,17 @@
+$$
+CREATE OR REPLACE FUNCTION `phone_country_code_add` (`code_input` INT UNSIGNED) RETURNS INT(10) UNSIGNED NO SQL
+BEGIN
+    DECLARE code_id INT(10) UNSIGNED;
+    SELECT `id` INTO code_id
+        FROM `phone_country_codes` 
+        WHERE `phone_country_codes`.`code` = code_input
+        LIMIT 1;
+    IF alias_id IS NULL THEN
+        INSERT INTO `phone_country_codes`
+            (`phone_country_codes`.`code`)
+            VALUES
+            (code_input);
+        RETURN LAST_INSERT_ID();
+    END IF;
+    RETURN (SELECT code_id);
+END$$
