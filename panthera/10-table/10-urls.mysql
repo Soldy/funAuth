@@ -1,0 +1,6 @@
+CREATE TABLE `urls` (
+    `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `domainId` int(10) UNSIGNED NOT NULL,
+    `pathId` int(10) UNSIGNED NOT NULL,
+    KEY `index` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
