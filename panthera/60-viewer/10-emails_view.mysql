@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW `emails_view`  AS
+    SELECT 
+        `emails`.`id` AS `id`,
+        CONCAT(`aliases`.`alias`,'@',`domains`.`domain`) AS `email`
+        FROM `emails`
+        LEFT JOIN `aliases` 
+        ON `emails`.`aliasId` = `aliases`.`id`
+        LEFT JOIN `domains`
+        ON `emails`.`domainId` = `domains`.`id`;
