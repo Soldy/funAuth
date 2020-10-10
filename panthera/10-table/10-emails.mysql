@@ -1,0 +1,6 @@
+CREATE TABLE `emails` (
+    `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `aliasId` int(10) UNSIGNED NOT NULL,
+    `domainId` int(10) UNSIGNED NOT NULL,
+    KEY `index` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
