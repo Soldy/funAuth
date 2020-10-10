@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW
+  `users_view`  AS 
+    SELECT `users`.`id` AS `id`,
+           `aliases`.`alias` AS `name`,
+           `groups`.`name` AS `group`,
+           `routes`.`route` AS `route` 
+    FROM `users` 
+    LEFT JOIN `aliases` 
+      ON `users`.`aliasId` = `aliases`.`id` 
+    LEFT JOIN `groups`
+      ON `users`.`groupId` = `groups`.`id`
+    LEFT JOIN `routes`
+      ON `groups`.`routeId` = `routes`.`id` ;
