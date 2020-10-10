@@ -1,0 +1,23 @@
+$$
+CREATE OR REPLACE FUNCTION `email_add` (`email_input` VARCHAR(70) CHARSET utf8) RETURNS INT(10) UNSIGNED MODIFIES SQL DATA
+BEGIN
+    DECLARE alias_id INT(10) UNSIGNED;
+    DECLARE domain_id INT(10) UNSIGNED;
+    DECLARE email_id INT(10) UNSIGNED;    
+    SET alias_id = (SELECT alias_add((SELECT SUBSTRING_INDEX(email_input, '@', 1))));
+    SET domain_id = (SELECT domain_add((SELECT SUBSTRING_INDEX(email_input, '@', -1))));
+    SELECT `emails`.`id` AS `id` INTO email_id
+      FROM `emails`
+      WHERE `emails`.`aliasId` = alias_id
+      AND `emails`.`domainId` = domain_id
+      LIMIT 1;
+    IF email_id IS NULL THEN 
+      INSERT INTO `emails`
+        (`emails`.`aliasId`, `emails`.`domainId`)
+        VALUES
+        (alias_id, domain_id);
+      RETURN LAST_INSERT_ID();
+    END IF;
+        
+    RETURN email_id;
+END$$

@@ -1,0 +1,20 @@
+DELIMITER ;;
+CREATE OR REPLACE FUNCTION `user_email_add` (`user_id` INT UNSIGNED, `email_input` VARCHAR(70) CHARSET utf8) RETURNS INT(10) UNSIGNED MODIFIES SQL DATA
+BEGIN
+    DECLARE email_id INT(10) UNSIGNED;
+    DECLARE user_email_id INT(10) UNSIGNED;
+    SET email_id = (SELECT email_add(email_input));
+    SELECT `id` INTO user_email_id
+        FROM `user_emails` 
+        WHERE `user_emails`.`emailId` = email_id
+        LIMIT 1;
+    IF user_email_id IS NULL THEN
+        INSERT INTO `user_emails`
+            (`user_emails`.`userId`, `user_emails`.`emailId`)
+            VALUES
+            (user_id, email_id);
+        RETURN LAST_INSERT_ID();
+    END IF;
+    RETURN 0;
+END;;
+DELIMITER ;
